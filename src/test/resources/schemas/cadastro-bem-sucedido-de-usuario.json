@@ -1,0 +1,66 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1730315669.json",
+  "title": "Root",
+  "type": "object",
+  "required": [
+    "idUsuario",
+    "nmUsuario",
+    "dsEmail",
+    "nrCpf",
+    "dtNasc"
+  ],
+  "properties": {
+    "idUsuario": {
+      "$id": "#root/idUsuario",
+      "title": "Idusuario",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "16 "
+      ],
+      "pattern": "^.*$"
+    },
+    "nmUsuario": {
+      "$id": "#root/nmUsuario",
+      "title": "Nmusuario",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "Carlos Lima "
+      ],
+      "pattern": "^.*$"
+    },
+    "dsEmail": {
+      "$id": "#root/dsEmail",
+      "title": "Dsemail",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "carloslima.silva@example.com"
+      ],
+      "pattern": "^.*$"
+    },
+    "nrCpf": {
+      "$id": "#root/nrCpf",
+      "title": "Nrcpf",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "18845678922"
+      ],
+      "pattern": "^.*$"
+    },
+    "dtNasc": {
+      "$id": "#root/dtNasc",
+      "title": "Dtnasc",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "1994-01-01"
+      ],
+      "pattern": "^.*$"
+    }
+  }
+}
