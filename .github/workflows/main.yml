@@ -65,4 +65,4 @@ jobs:
         with:
           app-name: ${{ secrets.AZURE_TEST_APP_NAME }}
           publish-profile: ${{ secrets.AZURE_TEST_PUBLISH_PROFILE }}
-          images: DOCKER|${{ secrets.REGISTRY_URL }}/smart-waste-management-test:latest
+          images: DOCKER|registrosmartmanagement.azurecr.io/smartcity-waste-management:previous
