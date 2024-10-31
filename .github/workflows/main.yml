@@ -24,6 +24,9 @@ jobs:
           mvn clean package   # Gera o .jar no diretório target
           mvn test            # Executa os testes
 
+      - name: Verificar conteúdo do diretório target
+        run: ls -la target
+
   build_docker:
     runs-on: ubuntu-latest
     needs: continuous-integration
