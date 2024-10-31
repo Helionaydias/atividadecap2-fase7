@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - main
+      - '*'  # Isso significa qualquer branch
 
 jobs:
   continuous-integration:
@@ -17,27 +17,21 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '17'   # Configurando para Java 17
           distribution: 'temurin'
 
       - name: Build and Test with Maven
         run: |
-          mvn clean test
+          mvn clean test  
+          
 
-  deploy:
+  build_docker:
     runs-on: ubuntu-latest
-    needs: continuous-integration
+    needs: continuous-integration  # Esse job depende do anterior
+
     if: success()
 
     steps:
-      - name: Login to Azure Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ${{ secrets.REGISTRY_URL }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-
-      - name: Pull and Run Docker Image
+      - name: Deploy application
         run: |
-          docker pull ${{ secrets.REGISTRY_URL }}/smartcity-waste-management:previous
-          docker run -p 8082:8080 ${{ secrets.REGISTRY_URL }}/smartcity-waste-management:previous
+          echo "Deploying application..."
