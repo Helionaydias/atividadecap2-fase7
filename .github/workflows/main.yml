@@ -1,14 +1,15 @@
 name: Continuous Integration
 
 on:
-  pull_request:  # Aciona para pull requests
-  push:          # Aciona para pushs
+  pull_request:
+  push:
     branches:
-      - '*'  # Qualquer branch
+      - '*'  # Isso significa qualquer branch
 
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -16,34 +17,49 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'  # Configurado para Java 17
+          java-version: '17'   # Configurando para Java 17
           distribution: 'temurin'
 
       - name: Build and Test with Maven
         run: |
-          mvn clean install   # Constrói o projeto e gera o arquivo .jar
-          mvn test            # Executa os testes
+          mvn clean test  
+          
 
   build_docker:
     runs-on: ubuntu-latest
-    needs: continuous-integration  # Esse job depende do job anterior
+    needs: continuous-integration  # Esse job depende do anterior
+
+    if: success()
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Install Docker Compose
+      - name: Deploy application
         run: |
-          sudo apt-get update
-          sudo apt-get install docker-compose -y
+          echo "Deploying application..."
 
-      - name: Build Docker images with Docker Compose
-        run: |
-          docker-compose -f docker-compose.yml build
-
-      - name: Run Docker container
-        run: |
-          docker-compose -f docker-compose.yml up -d
+#      - name: Log in to Azure Container Registry
+#        uses: docker/login-action@v2
+#        with:
+#          registry: ${{ secrets.REGISTRY_URL }}
+#          username: ${{ secrets.REGISTRY_USERNAME }}
+#          password: ${{ secrets.REGISTRY_PASSWORD }}
+#
+#      - name: Build Docker images with Docker Compose
+#        run: |
+#          docker-compose -f docker-compose.yml build
+#
+#      - name: Push Docker images to Azure Container Registry
+#        run: |
+#          docker-compose -f docker-compose.yml push
+#
+#  deploy_test:
+#    runs-on: ubuntu-latest
+#    needs: build_docker  # Esse job depende do job de build_docker
+#    if: success()  # Só será executado se o job anterior for bem-sucedido
+#
+#    steps:
+#      - name: Azure Web Apps Deploy Test
+#        uses: Azure/webapps-deploy@v2
+#        with:
+#          app-name: ${{ secrets.AZURE_TEST_APP_NAME }}
+#          publish-profile: ${{ secrets.AZURE_TEST_PUBLISH_PROFILE }}
+#          images: ${{ secrets.REGISTRY_URL }}/smartcity-waste-management:latest
