@@ -23,7 +23,7 @@ jobs:
         run: mvn clean test
 
       - name: Build Java application
-        run: mvn clean package # Isso gera o diretório target e o JAR
+        run: mvn clean package # Gera o diretório target e o JAR
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,10 +40,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t helionay/cadstrousuarios:v1 .
+        run: docker build -t helionay/cadastrousuarios:v1 .
 
       - name: Push Docker image
-        run: docker push helionay/cadstrousuarios:v1
+        run: docker push helionay/cadastrousuarios:v1
 
       - name: Deploy application
         run: |
