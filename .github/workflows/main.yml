@@ -30,22 +30,7 @@ jobs:
     needs: continuous-integration  # Este job depende do anterior
     if: success()  # Só executará se o job anterior for bem-sucedido
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}  # Use seu nome de usuário do Docker Hub nos segredos do GitHub
-          password: ${{ secrets.DOCKER_PASSWORD }}  # Use seu token de acesso do Docker Hub nos segredos do GitHub
-
-      - name: Build Docker image
-        run: docker build -t helionay/cadastrousuarios:v1 .
-
-      - name: Push Docker image
-        run: docker push helionay/cadastrousuarios:v1
-
       - name: Deploy application
         run: |
           echo "Deploying application..."
-          # Adicione aqui seu comando de deploy, como comandos para o Azure se aplicável
+        
