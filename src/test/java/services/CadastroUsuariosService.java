@@ -32,7 +32,7 @@ public class CadastroUsuariosService {
     public final Gson gson = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
             .create();
-    String baseUrl = "http://localhost:8082";
+    String baseUrl = "https://cadastro-usuarios-smartwastmanagement-hxawh3drg3c5exgf.canadacentral-01.azurewebsites.net/usuarios";
     public Response response;
     String idUsuario;
     JSONObject jsonSchema;
